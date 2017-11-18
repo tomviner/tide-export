@@ -130,14 +130,14 @@ command :csv do |c|
     path = "#{options.directory}/tide-#{account['accountId']}-#{Time.now.to_i}.csv"
 
     CSV.open(path, "wb") do |csv|
-      csv << [:date, :description, :amount, :balance]
+      # FreeAgent doesn't want any headers
+      # csv << [:date, :description, :amount, :balance]
       transactions.reverse.each_with_index do |transaction, index|
         balance = index == 0 ? account['availableBalance'] : nil
         csv << [
-          DateTime.parse(transaction['isoTransactionDateTime']).strftime("%d/%m/%y"),
-          transaction['description'],
+          DateTime.parse(transaction['isoTransactionDateTime']).strftime("%d/%m/%Y"),
           transaction['amount'],
-          balance
+          transaction['description']
         ]
       end
     end
