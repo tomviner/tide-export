@@ -80,7 +80,7 @@ command :login do |c|
 
     if options.client_id
       redirect_url = 'https://scottrobertson.github.io/dump-query-params/index.html'
-      system("open", "https://api.tide.co/tide-backend/oauth/index.html?redirect_url=#{redirect_url}&client_id=#{options.client_id}")
+      system("xdg-open", "https://api.tide.co/tide-backend/oauth/index.html?redirect_url=#{redirect_url}&client_id=#{options.client_id}")
 
       code = ask('Enter the code from the page you were redirected to: ')
       response = RestClient.get("https://api.tide.co/tide-backend/rest/api/v1/oauth2/tokens?code=#{code}")
